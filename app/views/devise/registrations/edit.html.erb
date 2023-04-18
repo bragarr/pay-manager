@@ -1,34 +1,57 @@
 <section class="mx-lg-5">
   <%= link_to "Back to homepage", :back, class:"btn btn-primary mb-3 mx-lg-5" %>
-  <div class="mx-lg-5">
+  <article class="mx-lg-5">
     <h2 class="mb-4">Profile</h2>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="form-floating mb-3">
+        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control", placeholder:"profile" %>
+        <%= f.label :profile_picture_url %>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Default file input example</label>
+        <input class="form-control" type="file" id="formFile">
+      </div>
+      <div class="form-floating mb-3">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"E-mail" %>
         <%= f.label "E-mail" %>
+      </div>
+      <div class="d-lg-flex">
+        <div class="form-floating mb-3 col-lg-6 pe-lg-2">
+          <%= f.text_field :first_name, autocomplete: "first name", class:"form-control", placeholder:"First name" %>
+          <%= f.label "First name" %>
+        </div>
+        <div class="form-floating mb-3 col-lg-6">
+          <%= f.text_field :last_name, autocomplete: "last name", class:"form-control", placeholder:"Last name" %>
+          <%= f.label "Last name" %>
+        </div>
       </div>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
-      <% if @minimum_password_length %>
-        <%= @minimum_password_length %> characters minimum (Leave blank if you don't want to change it)
-      <% end %>
-      <div class="form-floating mb-3">
+      <h3>Change password (Leave blank if you don't want to change it)</h3>
+      <div class="form-floating">
         <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"Password" %>
         <%= f.label :password %>
       </div>
-      <div class="form-floating mb-3">
+      <% if @minimum_password_length %>
+        <%= @minimum_password_length %> characters minimum
+      <% end %>
+      <div class="form-floating my-3">
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Password confirmation" %>
         <%= f.label :password_confirmation %>
       </div>
-      (We need your current password to confirm your changes)
-      <div class="form-floating mb-3">
-        <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password" %>
-        <%= f.label :current_password %>
-      </div>
-      <div>
-        <%= f.submit "Update", class: "btn btn-success" %>
+      <div class="card text-bg-light mb-3">
+        <div class="card-header">We need your current password to confirm your changes</div>
+        <div class="card-body">
+          <div class="form-floating mb-3">
+            <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password" %>
+            <%= f.label :current_password %>
+          </div>
+          <div>
+            <%= f.submit "Update", class: "btn btn-success" %>
+          </div>
+        </div>
       </div>
     <% end %>
     <div class="card my-4">
@@ -69,5 +92,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </article>
 </section>
