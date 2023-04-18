@@ -1,0 +1,11 @@
+:root {
+	--yellow-brand: #FFFF00;	
+}
+
+.navbar, .offcanvas-header {
+	background-color: var(--yellow-brand);
+}
+
+.navbar {
+	height: 140px;
+}

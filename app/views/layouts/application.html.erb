@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag "styles" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
@@ -13,7 +13,7 @@
     <header>
       <%= render 'home/header' %>
     </header>
-    <main>
+    <main class="mx-5 my-4">
       <% if notice %>
         <%= render 'layouts/notices' %>
       <% end %>
