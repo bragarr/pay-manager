@@ -7,7 +7,6 @@
     "@popperjs/core": "^2.11.7",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.4",
-    "dotenv": "^16.0.3",
     "esbuild": "^0.17.17",
     "firebase": "^9.20.0",
     "sass": "^1.62.0"
@@ -16,5 +15,7 @@
     "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
 }

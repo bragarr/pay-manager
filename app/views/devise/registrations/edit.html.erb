@@ -2,15 +2,27 @@
   <%= link_to "Back to homepage", :back, class:"btn btn-primary mb-3 mx-lg-5" %>
   <article class="mx-lg-5">
     <h2 class="mb-4">Profile</h2>
+    <div class="d-flex align-items-center">
+      <% if current_user.profile_picture_url.nil? || current_user.profile_picture_url == "" %>
+        <i class="bi bi-person-circle" style="font-size: 100px;"></i>
+      <% else %>
+        <%= image_tag(current_user.profile_picture_url, style:"width: 100px; height: 100px", class:"ms-lg-5") %>
+      <% end %>
+      <form class="formulario">
+        <div class="input-group mb-3">
+          <input class="form-control" type="file" name="enviarFoto" id="enviarFoto" />
+          <button class="btn btn-outline-primary" type="submit">Send</button>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar w-0">-</div>
+        </div>
+      </form>
+    </div>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="form-floating mb-3">
-        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control", placeholder:"profile" %>
+      <div class="form-floating mb-3 d-none">
+        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control profile-url", placeholder:"profile" %>
         <%= f.label :profile_picture_url %>
-      </div>
-      <div class="mb-3">
-        <label for="formFile" class="form-label">Default file input example</label>
-        <input class="form-control" type="file" id="formFile">
       </div>
       <div class="form-floating mb-3">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"E-mail" %>
@@ -42,7 +54,7 @@
         <%= f.label :password_confirmation %>
       </div>
       <div class="card text-bg-light mb-3">
-        <div class="card-header">We need your current password to confirm your changes</div>
+        <div class="card-header">We need your current password to confirm all your changes</div>
         <div class="card-body">
           <div class="form-floating mb-3">
             <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password" %>
