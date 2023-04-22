@@ -31,7 +31,8 @@ const handleUpload = (event) => {
     );
 };
 
-formulario.addEventListener("submit", () => {
-    handleUpload(event);
-});
-
+if(formulario) {
+    formulario.addEventListener("submit", () => {
+        handleUpload(event);
+    });
+}

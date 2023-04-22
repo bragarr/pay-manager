@@ -14,7 +14,7 @@
         <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav flex-grow-1 pe-3 fs-3">
+        <ul class="navbar-nav flex-grow-1 pe-3 fs-5">
           <li class="nav-item">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
@@ -31,18 +31,34 @@
             </li>
           <% end %>
         </ul>
-        <% if user_signed_in? %>
-        <div class="btn-group">
-          <i type="button" class="bi bi-person-square fs-2" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></i>
-          <ul class="dropdown-menu dropdown-menu-lg-end">
-            <li class="dropdown-item d-flex justify-content-space align-items-center">
-              <i class="bi bi-gear pe-1"></i><%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
-            </li>
-            <li class="dropdown-item d-flex justify-content-space align-items-center">
-              <i class="bi bi-box-arrow-left pe-1"></i><%= link_to "Sign out", destroy_user_session_path, "data-turbo-method": :delete, class: "nav-link" %>
-            </li>
-          </ul>
-        </div>
+        <% if user_signed_in? && current_user.profile_picture_url.nil? || user_signed_in? && current_user.profile_picture_url == "" %>
+          <div class="btn-group">
+            <i type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+              <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" style="width: 40px; height: 40px">
+            </i>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+              <li class="dropdown-item d-flex justify-content-space align-items-center">
+                <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" style="width: 20px; height: 20px"><%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
+              </li>
+              <li class="dropdown-item d-flex justify-content-space align-items-center">
+                <i class="bi bi-box-arrow-left pe-1"></i><%= link_to "Sign out", destroy_user_session_path, "data-turbo-method": :delete, class: "nav-link" %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="btn-group">
+            <i type="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+              <%= image_tag(current_user.profile_picture_url, style:"width: 40px; height: 40px") %>
+            </i>
+            <ul class="dropdown-menu dropdown-menu-lg-end">
+              <li class="dropdown-item d-flex justify-content-space align-items-center">
+                <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
+              </li>
+              <li class="dropdown-item d-flex justify-content-space align-items-center">
+                <i class="bi bi-box-arrow-left pe-1"></i><%= link_to "Sign out", destroy_user_session_path, "data-turbo-method": :delete, class: "nav-link" %>
+              </li>
+            </ul>
+          </div>
         <% end %>
       </div>
     </div>
