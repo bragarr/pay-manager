@@ -2,11 +2,11 @@
   <%= link_to "Back to homepage", :back, class:"btn btn-primary mb-3 mx-lg-5" %>
   <article class="mx-lg-5">
     <h2 class="mb-4">Profile</h2>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center profile-picture">
       <% if current_user.profile_picture_url.nil? || current_user.profile_picture_url == "" %>
-        <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" style="width: 100px; height: 100px">
+        <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" class="rounded-circle" style="width: 100px; height: 100px">
       <% else %>
-        <%= image_tag(current_user.profile_picture_url, style:"width: 100px; height: 100px") %>
+        <%= image_tag(current_user.profile_picture_url, style:"width: 100px; height: 100px", class:"rounded-circle mx-2 my-3") %>
       <% end %>
       <form class="formulario">
         <div class="input-group mb-3">
