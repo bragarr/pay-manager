@@ -9,3 +9,12 @@
 .navbar {
 	height: 140px;
 }
+
+.current-profile-picture, .new-profile-picture {
+	height: 100px;
+	width: 100px;
+}
+
+.d-none {
+	transition: 5s;
+}

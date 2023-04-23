@@ -4,25 +4,24 @@
     <h2 class="mb-4">Profile</h2>
     <div class="d-flex align-items-center profile-picture">
       <% if current_user.profile_picture_url.nil? || current_user.profile_picture_url == "" %>
-        <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" class="rounded-circle" style="width: 100px; height: 100px">
+        <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" class="rounded-circle current-profile-picture">
       <% else %>
-        <%= image_tag(current_user.profile_picture_url, style:"width: 100px; height: 100px", class:"rounded-circle mx-2 my-3") %>
+        <%= image_tag(current_user.profile_picture_url, style:"width: 100px; height: 100px", class:"rounded-circle mx-2 my-3 current-profile-picture") %>
       <% end %>
       <form class="formulario">
         <div class="input-group mb-3">
-          <input class="form-control" type="file" name="enviarFoto" id="enviarFoto" />
-          <button class="btn btn-outline-primary" type="submit">Send</button>
+          <input class="form-control" type="file" name="enviarFoto" id="enviarFoto" accept="image/x-png,image/gif,image/jpeg">
+          <button class="btn btn-outline-primary button-submit-picture" type="submit">Send</button>
         </div>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar w-0">-</div>
+        <div class="progress d-none" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar"></div>
         </div>
       </form>
     </div>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="form-floating mb-3 d-none">
-        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control profile-url", placeholder:"profile" %>
-        <%= f.label :profile_picture_url %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control profile-url", placeholder:"profile", type: :hidden %>
       </div>
       <div class="form-floating mb-3">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"E-mail" %>
