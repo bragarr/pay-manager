@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "styles" , "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <% if controller_name.start_with?("registrations") %>
+      <%= javascript_include_tag "profile_picture", "data-turbo-track": "reload", defer: true %>
+    <% end %>
   </head>
   <body>
     <header>
       <%= render 'home/header' %>
     </header>
-    <main>
+    <main class="mx-5 my-4 main-page">
       <% if notice %>
         <%= render 'layouts/notices' %>
       <% end %>

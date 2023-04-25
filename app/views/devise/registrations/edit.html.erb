@@ -1,43 +1,106 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+<section class="mx-lg-5">
+  <%= link_to "Back to homepage", :back, class:"btn btn-primary mb-3 mx-lg-5" %>
+  <article class="mx-lg-5">
+    <h2 class="mb-4">Profile</h2>
+    <div class="d-flex align-items-center profile-picture">
+      <form class="formulario d-flex align-items-center form-picture-field">
+        <div class="upload">
+          <% if current_user.profile_picture_url.nil? || current_user.profile_picture_url == "" %>
+            <img src=<%= ENV['STD_PROFILE_PICTURE'] %> alt="profile" class="current-profile-picture">
+          <% else %>
+            <%= image_tag(current_user.profile_picture_url, class:"mx-2 my-3 current-profile-picture") %>
+          <% end %>
+          <div class="round bg-primary">
+            <input class="form-control" type="file" name="sendPicture" id="sendPicture" accept="image/x-png,image/gif,image/jpeg">
+            <i class="bi bi-pencil-square text-bg-primary"></i>
+          </div>
+        </div>
+        <button class="btn btn-outline-primary button-submit-picture" type="submit">Send<i class="bi bi-upload ps-1"></i></button>
+      </form>
+    </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="form-floating mb-3">
+        <%= f.text_field :profile_picture_url, autocomplete: "profile", class:"form-control profile-url", placeholder:"profile", type: :hidden %>
+      </div>
+      <div class="form-floating mb-3">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"E-mail" %>
+        <%= f.label "E-mail" %>
+      </div>
+      <div class="d-lg-flex">
+        <div class="form-floating mb-3 col-lg-6 pe-lg-2">
+          <%= f.text_field :first_name, autocomplete: "first name", class:"form-control", placeholder:"First name" %>
+          <%= f.label "First name" %>
+        </div>
+        <div class="form-floating mb-3 col-lg-6">
+          <%= f.text_field :last_name, autocomplete: "last name", class:"form-control", placeholder:"Last name" %>
+          <%= f.label "Last name" %>
+        </div>
+      </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+      <div class="card text-bg-light mb-3">
+        <% if @minimum_password_length %>
+          <div class="card-header">Change password (<%= @minimum_password_length %> characters minimum). Leave blank if you don't want to change it.</div>
+        <% end %>
+        <div class="card-body">
+          <div class="form-floating">
+            <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"Password" %>
+            <%= f.label :password %>
+          </div>
+          <div class="form-floating my-3">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"Password confirmation" %>
+            <%= f.label :password_confirmation %>
+          </div>
+        </div>
+      </div>
+      <div class="card text-bg-light mb-3 bg-warning">
+        <div class="card-header">We need your current password to confirm all your changes</div>
+        <div class="card-body">
+          <div class="form-floating mb-3">
+            <%= f.password_field :current_password, autocomplete: "current-password", class:"form-control", placeholder:"Current password" %>
+            <%= f.label :current_password %>
+          </div>
+          <div>
+            <%= f.submit "Update", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+    <div class="card my-4">
+      <div class="card-body">
+        <h5 class="card-title">Not interested anymore?</h5>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelMyAccountModal">
+          Cancel my account
+        </button>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="cancelMyAccountModal" tabindex="-1" aria-labelledby="cancelMyAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="cancelMyAccountModalLabel">Cancel account!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure to cancel your account permanently?</p>
+            <p>Once you cancel your account, you will not have access anymore to the application!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <%=
+              button_to "Cancel my account",
+              registration_path(resource_name),
+              data: { confirm: "Are you sure?",
+              turbo_confirm: "Are you sure?" },
+              method: :delete,
+              class:"btn btn-danger"  
+            %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>

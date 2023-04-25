@@ -31,6 +31,9 @@ config/master.key
 # TODO Comment out this rule if environment variables can be committed
 .env
 
+# Javascript keys
+keyfile.js
+
 ## Environment normalization:
 /.bundle
 /vendor/bundle
