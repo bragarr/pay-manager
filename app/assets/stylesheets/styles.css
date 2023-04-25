@@ -1,5 +1,6 @@
 :root {
-	--yellow-brand: #FFFF00;	
+	--yellow-brand: #FFFF00;
+	--blue-brand: #00B4FF;	
 }
 
 .navbar, .offcanvas-header {
@@ -10,11 +11,50 @@
 	height: 140px;
 }
 
-.current-profile-picture, .new-profile-picture {
+.current-profile-picture {
 	height: 100px;
 	width: 100px;
 }
 
 .d-none {
 	transition: 5s;
+}
+
+.upload {
+  width: 100px;
+  border-radius: 50%;
+  position: relative;
+  margin: auto;
+}
+
+.upload img {
+  border-radius: 50%;
+  padding: 6px;
+  background: conic-gradient(#00B4FF 0deg, #ededed 0deg);
+}
+
+.upload .round {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.upload .round input[type = "file"] {
+  position: absolute;
+  transform: scale(2);
+  opacity: 0;
+}
+
+input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+.button-submit-picture {
+  height: 40px;
 }
